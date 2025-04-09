@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 
-function useCurrencyInfo(currency) {
+const useCurrencyInfo = (currency) => {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    fetch(`https://v6.exchangerate-api.com/v6/785869a6cc5d522fa0020bcf/latest/${currency}`)
+    fetch(`https://api.exchangerate-api.com/v4/latest/${currency.toUpperCase()}`)
       .then((res) => res.json())
       .then((res) => {
-        if (res && res.conversion_rates) {
-          setData(res.conversion_rates);
+        // Ensure all keys are in uppercase
+        const upperCasedRates = {};
+        for (const [key, value] of Object.entries(res.rates)) {
+          upperCasedRates[key.toUpperCase()] = value;
         }
+        setData(upperCasedRates);
       })
-      .catch((error) => console.error("Failed to fetch exchange rates:", error));
+      .catch((err) => console.error("API error:", err));
   }, [currency]);
 
   return data;
-}
+};
 
 export default useCurrencyInfo;
