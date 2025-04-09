@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-     <h1 className='bg-amber-700 text-blue-300'>I am Aadarsh Mishra</h1>
+     <h1 className='bg-amber-700 text-blue-300'>Currency App With Coffee</h1>
     </>
   )
 }
